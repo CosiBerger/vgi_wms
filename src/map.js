@@ -1,8 +1,15 @@
-// Karte erstellen und auf Braunschweig zentrieren
-const map = L.map("map").setView([48.781777, 11.736130], 3);
 
-const topoMap = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+/**
+ * Karte erstellen und auf Braunschweig zentrieren
+ */
+const map = L.map("map").setView([53.55, 10.0], 11);
+
+/**
+ * OpenStreetMap als Hintergrundlayer zur Karte hinzufuegen
+ */
+const topoMap = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 19,
+    attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
 }).addTo(map);
 
 /**
@@ -14,10 +21,10 @@ const topoMap = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
  * Website: https://geoportal-hamburg.de/geo-online/
  * Capabilities: https://geodienste.hamburg.de/HH_WMS_Radverkehrsnetz?SERVICE=WMS&REQUEST=GetCapabilities
  */
-const radverkehrLayer = L.tileLayer.wms('https://geodienste.hamburg.de/HH_WMS_Radverkehrsnetz?', {
-    layers: 'radwege_fahrradstrasse,radwege_gruenflaechen',
-    transparent: true,
-    format: 'image/png'
+const radverkehrLayer = L.tileLayer.wms('https://geodienste.hamburg.de/HH_WMS_Radverkehrsnetz', {
+    layers:'radwege_fahrradstrasse,radwege_gruenflaechen,radwege_mischverkehr',
+    transparent:true,
+    format:'image/png'
 }).addTo(map);
 
 /**
@@ -81,6 +88,41 @@ const dgm = L.tileLayer.wms("https://ows.terrestris.de/osm/service?", {
     version: "1.3.0",
 });
 
+
+/**
+ * Eine Auswahl der von euch gefundenen WMS Diensten
+ */
+const dgm200Deutschland = L.tileLayer.wms("https://sgx.geodatenzentrum.de/wms_dgm200", {
+    layers: "colormap",
+    transparent: true,
+    format: "image/png",
+});
+
+const geologieBrandenburg = L.tileLayer.wms("https://inspire.brandenburg.de/services/gk_wms", {
+    layers: "GEOLOGISCHE_KARTEN",
+    transparent: true,
+    format: "image/png",
+});
+
+const dgmHamburg = L.tileLayer.wms("https://geodienste.hamburg.de/HH_WMS_DGM1", {
+    layers: "WMS_DGM1_farbig",
+    transparent: true,
+    format: "image/png",
+});
+
+const dwdWindrichtung = L.tileLayer.wms("https://maps.dwd.de/geoserver/wms", {
+    layers: "dwd:Cwam_reg025_fd_sl_DD10M",
+    transparent: true,
+    format: "image/png",
+});
+
+const panoramaSeismicData = L.tileLayer.wms("https://services.bgr.de/wms/geophysik/panorama/", {
+    layers: "12",
+    transparent: true,
+    format: "image/png",
+});
+
+
 /**
  * Aufgabe 3
  */
@@ -92,4 +134,18 @@ const dgm = L.tileLayer.wms("https://ows.terrestris.de/osm/service?", {
 
 
 // Alle Layer werder zu einem Layer Control hinzugefuegt
-L.control.layers ({"OpenTopoMap" : topoMap, "DGM": dgm, "Erdbeben": earthquake}, { "Radverkehr": radverkehrLayer, "Wetter": weather, "Weltmeere": ocean, "Geologie": geologie}).addTo(map);
+L.control.layers ({
+    "OpenTopoMap" : topoMap, 
+    "DGM": dgm, 
+    "Erdbeben": earthquake, 
+    "DGM 200 Deutschland": dgm200Deutschland, 
+    "DGM Hamburg": dgmHamburg}, 
+    { 
+    "Radverkehr": radverkehrLayer, 
+    "Wetter": weather, 
+    "Weltmeere": ocean, 
+    "Geologie Bayern": geologie, 
+    "Geologie Brandenburg": geologieBrandenburg, 
+    "DWD Windrichtungen": dwdWindrichtung, 
+    "Seismic Data(Panorama)": panoramaSeismicData
+}).addTo(map);

@@ -1,28 +1,27 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="en">
     <head>
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Leaflet</title>
+        <title>Leaflet Client</title>
 
-        <!--Leaflet einbinden-->
-        <link rel="stylesheet" href="libs/leaflet/leaflet.css">
-        <script src="libs/leaflet/leaflet-src.js"></script>
+        <!-- Eigene CSS datei einbinden -->
+        <link rel="stylesheet" href="./css/style.css">
 
-        <!--Eigene CSS Datei einbinden-->
-        <link rel="stylesheet" href="css/style.css">
+        <!-- Leaflet einbinden -->
+        <link rel="stylesheet" href="./libs/leaflet/leaflet.css">
+        <script src="./libs/leaflet/leaflet-src.js"></script>
 
         <!--Leaflet WMS Legend einbinden-->
         <link rel="stylesheet" href="libs/leaflet-wms-legend/leaflet.wmslegend.css">
         <script src="libs/leaflet-wms-legend/leaflet.wmslegend.js"></script>
     </head>
     <body>
-
-        <!--Element an dem die Karte eingehaengt wird-->
+        <!-- HTML Elment an das die Karte gehaengt wird-->
         <div id="map" class="map"></div>
     </body>
 
-    <!--Eigene JS Datei einbinden-->
-    <script src="src/map.js"></script>
+    <!-- Eigene JS Datein einbinden -->
+    <script src="./src/map.js"></script>
 </html>
